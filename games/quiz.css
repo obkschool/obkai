@@ -95,6 +95,10 @@ body {
     grid-template-columns: 1fr;
     gap: 15px;
     margin: 25px 0;
+    width: 100%;
+    transition: opacity 0.3s ease;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .option-btn {
@@ -454,46 +458,111 @@ body.light-theme select option {
     margin-top: 20px;
 }
 
+/* Enhanced Topic Options */
 .topic-btn {
-    background: linear-gradient(145deg, rgba(67, 97, 238, 0.1), rgba(63, 55, 201, 0.2));
-    border: 2px solid rgba(76, 201, 240, 0.3);
-    border-radius: var(--border-radius);
-    padding: 12px 15px;
-    font-size: 1rem;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    color: #4cc9f0;
+    border: 1px solid rgba(76, 201, 240, 0.3);
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin: 10px 0;
+    width: 100%;
+    text-align: right;
+    font-size: 1.1rem;
     font-weight: 500;
-    text-align: center;
     cursor: pointer;
-    transition: var(--transition);
-    color: var(--text-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .topic-btn::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, transparent, rgba(76, 201, 240, 0.1), transparent);
-    transform: translateX(-100%);
-    transition: 0.6s;
+    background: linear-gradient(120deg, transparent 30%, rgba(76, 201, 240, 0.1) 70%);
+    opacity: 0;
+    transition: all 0.4s ease;
 }
 
 .topic-btn:hover {
     transform: translateY(-3px);
-    border-color: var(--accent-color);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-color: rgba(76, 201, 240, 0.6);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    color: #7bdff2;
 }
 
 .topic-btn:hover::before {
-    transform: translateX(100%);
+    opacity: 1;
 }
 
 .topic-btn:active {
     transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Selected topic button */
+.topic-btn.selected {
+    background: linear-gradient(145deg, rgba(76, 201, 240, 0.15), rgba(76, 201, 240, 0.08));
+    border-color: #4cc9f0;
+    box-shadow: 0 4px 12px rgba(76, 201, 240, 0.2);
+}
+
+/* First topic button (active) */
+.topic-btn:first-child {
+    background: linear-gradient(145deg, rgba(76, 201, 240, 0.2), rgba(76, 201, 240, 0.1));
+    border-color: #4cc9f0;
+    box-shadow: 0 4px 12px rgba(76, 201, 240, 0.2);
+}
+
+/* Animation for topic buttons */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.topic-btn {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.topic-btn:nth-child(1) { animation-delay: 0.1s; }
+.topic-btn:nth-child(2) { animation-delay: 0.2s; }
+.topic-btn:nth-child(3) { animation-delay: 0.3s; }
+.topic-btn:nth-child(4) { animation-delay: 0.4s; }
+.topic-btn:nth-child(5) { animation-delay: 0.5s; }
+
+/* Light theme adjustments */
+body.light-theme .topic-btn {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+    border-color: rgba(76, 201, 240, 0.3);
+    color: #3a86ff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .topic-btn:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8));
+    border-color: rgba(58, 134, 255, 0.5);
+    color: #2563eb;
+}
+
+body.light-theme .topic-btn:first-child,
+body.light-theme .topic-btn.selected {
+    background: linear-gradient(145deg, rgba(58, 134, 255, 0.1), rgba(58, 134, 255, 0.05));
+    border-color: #3a86ff;
+    color: #2563eb;
 }
 
 /* Completely redesigned review section */
@@ -739,12 +808,13 @@ body.light-theme select option {
     box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
 }
 
-/* Enhanced Options Styling */
+/* Enhanced Quiz Options with Left Adjustment */
 .option {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius);
-    padding: 15px 20px;
+    background: linear-gradient(145deg, #1e293b, #1a2234);
+    color: #e2e8f0;
+    border: 1px solid rgba(76, 201, 240, 0.3);
+    border-radius: 12px;
+    padding: 15px 20px 15px 15px;
     margin-bottom: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -752,7 +822,12 @@ body.light-theme select option {
     overflow: hidden;
     display: flex;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    justify-content: flex-end;
+    text-align: right;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    margin-left: 20px; /* Move options to the left */
+    width: calc(100% - 20px); /* Adjust width to maintain alignment */
 }
 
 .option::before {
@@ -761,32 +836,38 @@ body.light-theme select option {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(76, 201, 240, 0.4);
     right: 15px;
     transition: all 0.3s ease;
 }
 
 .option:hover {
+    background: linear-gradient(145deg, #243247, #1e293b);
+    border-color: rgba(76, 201, 240, 0.6);
     transform: translateY(-2px);
-    border-color: var(--accent-color);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.option:hover::before {
+    border-color: rgba(76, 201, 240, 0.8);
+    box-shadow: 0 0 8px rgba(76, 201, 240, 0.4);
 }
 
 .option.selected {
-    border-color: var(--primary-color);
-    background: linear-gradient(145deg, rgba(67, 97, 238, 0.1), rgba(67, 97, 238, 0.05));
+    background: linear-gradient(145deg, #243247, #1e293b);
+    border-color: #4cc9f0;
+    box-shadow: 0 0 15px rgba(76, 201, 240, 0.3);
 }
 
 .option.selected::before {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.3);
+    background-color: #4cc9f0;
+    border-color: #4cc9f0;
+    box-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
 }
 
 .option.correct {
+    background: linear-gradient(145deg, #1e3a23, #1a3320);
     border-color: var(--correct-color);
-    background: linear-gradient(145deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
 }
 
 .option.correct::before {
@@ -795,13 +876,32 @@ body.light-theme select option {
 }
 
 .option.wrong {
+    background: linear-gradient(145deg, #3a1e1e, #331a1a);
     border-color: var(--wrong-color);
-    background: linear-gradient(145deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.05));
 }
 
 .option.wrong::before {
     background-color: var(--wrong-color);
     border-color: var(--wrong-color);
+}
+
+/* Adjust options container to accommodate the left shift */
+.options-container {
+    width: 100%;
+    transition: opacity 0.3s ease;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/* Adjust question text to align with options */
+.question-text {
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--text-color);
+    padding-right: 10px;
 }
 
 /* Animation for options */
@@ -818,12 +918,40 @@ body.light-theme select option {
 
 .option {
     animation: fadeInUp 0.4s ease forwards;
+    padding-right: 45px; /* Make room for the circle indicator */
 }
 
 .option:nth-child(1) { animation-delay: 0.1s; }
 .option:nth-child(2) { animation-delay: 0.2s; }
 .option:nth-child(3) { animation-delay: 0.3s; }
 .option:nth-child(4) { animation-delay: 0.4s; }
+
+/* Light theme adjustments - still keeping dark blue for options */
+body.light-theme .option {
+    background: linear-gradient(145deg, #1e293b, #1a2234);
+    color: #e2e8f0;
+    border-color: rgba(76, 201, 240, 0.3);
+}
+
+body.light-theme .option:hover {
+    background: linear-gradient(145deg, #243247, #1e293b);
+    border-color: rgba(76, 201, 240, 0.6);
+}
+
+body.light-theme .option.selected {
+    background: linear-gradient(145deg, #243247, #1e293b);
+    border-color: #4cc9f0;
+}
+
+body.light-theme .option.correct {
+    background: linear-gradient(145deg, #1e3a23, #1a3320);
+    border-color: var(--correct-color);
+}
+
+body.light-theme .option.wrong {
+    background: linear-gradient(145deg, #3a1e1e, #331a1a);
+    border-color: var(--wrong-color);
+}
 
 /* Enhanced Return to Topics Button */
 .return-to-topics {
@@ -860,75 +988,6 @@ body.light-theme select option {
 .return-to-topics:active {
     transform: translateX(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Improved Options with White Background */
-.option {
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--bg-color);
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    border-radius: var(--border-radius);
-    padding: 15px 20px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-weight: 500;
-}
-
-.option::before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid rgba(67, 97, 238, 0.3);
-    right: 15px;
-    transition: all 0.3s ease;
-}
-
-.option:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent-color);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    background: white;
-}
-
-.option.selected {
-    border-color: var(--primary-color);
-    background: white;
-}
-
-.option.selected::before {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.3);
-}
-
-.option.correct {
-    border-color: var(--correct-color);
-    background: rgba(76, 175, 80, 0.1);
-    color: var(--text-color);
-}
-
-.option.correct::before {
-    background-color: var(--correct-color);
-    border-color: var(--correct-color);
-}
-
-.option.wrong {
-    border-color: var(--wrong-color);
-    background: rgba(244, 67, 54, 0.1);
-    color: var(--text-color);
-}
-
-.option.wrong::before {
-    background-color: var(--wrong-color);
-    border-color: var(--wrong-color);
 }
 
 /* Enhanced Theme and Sound Toggle Buttons */
@@ -969,27 +1028,6 @@ body.light-theme select option {
 
 .control-btn .material-symbols-rounded {
     font-size: 20px;
-}
-
-/* Light theme adjustments for options */
-body.light-theme .option {
-    background: white;
-    color: var(--bg-color);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .option:hover {
-    border-color: var(--primary-color);
-}
-
-body.light-theme .option.correct {
-    background: rgba(76, 175, 80, 0.1);
-    color: #1e293b;
-}
-
-body.light-theme .option.wrong {
-    background: rgba(244, 67, 54, 0.1);
-    color: #1e293b;
 }
 
 /* Animated toggle effect for theme and sound */
