@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة الرجل المشنوق</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="hangman.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>لعبة الرجل المشنوق</h1>
+            <p>خمن الكلمة قبل أن تنتهي المحاولات</p>
+            <button id="theme-toggle-btn" class="theme-toggle">
+                <span class="material-symbols-rounded">light_mode</span>
+            </button>
+            <button id="sound-toggle-btn" class="sound-toggle">
+                <span class="material-symbols-rounded">volume_up</span>
+            </button>
+        </header>
+
+        <div id="topic-selection" class="game-section">
+            <h2>اختر موضوعاً للعبة</h2>
+            <div class="topic-input-container">
+                <input type="text" id="topic-input" placeholder="أدخل موضوعاً (مثل: الفضاء، الحيوانات، التاريخ)">
+                <button id="start-game-btn" class="primary-btn">ابدأ اللعبة</button>
+            </div>
+            
+            <div class="popular-topics">
+                <h3>مواضيع شائعة</h3>
+                <div class="topics-grid">
+                    <button class="topic-btn" data-topic="الفضاء والكواكب">الفضاء والكواكب</button>
+                    <button class="topic-btn" data-topic="الحيوانات">الحيوانات</button>
+                    <button class="topic-btn" data-topic="التاريخ الإسلامي">التاريخ الإسلامي</button>
+                    <button class="topic-btn" data-topic="الرياضيات">الرياضيات</button>
+                    <button class="topic-btn" data-topic="جسم الإنسان">جسم الإنسان</button>
+                    <button class="topic-btn" data-topic="الجغرافيا">الجغرافيا</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="game-section hidden">
+            <div class="loading-spinner"></div>
+            <p>جاري توليد كلمة عن <span id="loading-topic"></span>...</p>
+        </div>
+
+        <div id="game-area" class="game-section hidden">
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="info-label">المحاولات المتبقية:</span>
+                    <span id="attempts-count" class="info-value">6</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">الموضوع:</span>
+                    <span id="current-topic" class="info-value"></span>
+                </div>
+            </div>
+
+            <div class="hangman-container">
+                <div class="hangman-drawing">
+                    <svg width="200" height="250" viewBox="0 0 200 250">
+                        <!-- القاعدة -->
+                        <line x1="20" y1="230" x2="100" y2="230" class="hangman-part" id="base"></line>
+                        <!-- العمود -->
+                        <line x1="60" y1="230" x2="60" y2="30" class="hangman-part" id="pole"></line>
+                        <!-- العارضة العلوية -->
+                        <line x1="60" y1="30" x2="150" y2="30" class="hangman-part" id="top"></line>
+                        <!-- الحبل -->
+                        <line x1="150" y1="30" x2="150" y2="60" class="hangman-part" id="rope"></line>
+                        <!-- الرأس -->
+                        <circle cx="150" cy="80" r="20" class="hangman-part hidden" id="head"></circle>
+                        <!-- الجسم -->
+                        <line x1="150" y1="100" x2="150" y2="150" class="hangman-part hidden" id="body"></line>
+                        <!-- اليد اليسرى -->
+                        <line x1="150" y1="120" x2="130" y2="100" class="hangman-part hidden" id="left-arm"></line>
+                        <!-- اليد اليمنى -->
+                        <line x1="150" y1="120" x2="170" y2="100" class="hangman-part hidden" id="right-arm"></line>
+                        <!-- الساق اليسرى -->
+                        <line x1="150" y1="150" x2="130" y2="180" class="hangman-part hidden" id="left-leg"></line>
+                        <!-- الساق اليمنى -->
+                        <line x1="150" y1="150" x2="170" y2="180" class="hangman-part hidden" id="right-leg"></line>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="word-container">
+                <div id="word-display" class="word-display"></div>
+            </div>
+
+            <div class="hint-container">
+                <button id="hint-btn" class="secondary-btn">
+                    <span class="material-symbols-rounded">lightbulb</span>
+                    احصل على تلميح
+                </button>
+                <p id="hint-text" class="hint-text hidden"></p>
+            </div>
+
+            <div id="keyboard" class="keyboard"></div>
+
+            <div class="game-controls">
+                <button id="new-word-btn" class="primary-btn">كلمة جديدة</button>
+                <button id="back-btn" class="secondary-btn">العودة للمواضيع</button>
+            </div>
+        </div>
+
+        <div id="results" class="game-section hidden">
+            <h2 id="result-title"></h2>
+            <p id="result-message"></p>
+            <p>الكلمة كانت: <span id="result-word" class="highlight"></span></p>
+            
+            <div class="stars-container">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+            </div>
+            
+            <div class="result-buttons">
+                <button id="play-again-btn" class="primary-btn">العب مرة أخرى</button>
+                <button id="share-btn" class="secondary-btn">
+                    <span class="material-symbols-rounded">share</span>
+                    مشاركة النتيجة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="home-button" onclick="window.location.href='../index.html'">
+        <span class="material-symbols-rounded">home</span>
+    </button>
+
+    <script src="hangman.js"></script>
+</body>
+</html> 

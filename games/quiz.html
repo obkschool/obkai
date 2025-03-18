@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاختبار - اختبر معلوماتك</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>الاختبار</h1>
+            <p>اختبر معلوماتك في أي موضوع تختاره</p>
+            <div class="header-actions">
+                <button id="theme-toggle-btn" class="icon-btn">
+                    <span class="material-symbols-rounded">light_mode</span>
+                </button>
+                <button id="sound-toggle-btn" class="icon-btn">
+                    <span class="material-symbols-rounded">volume_up</span>
+                </button>
+            </div>
+        </header>
+
+        <div id="topic-selection" class="game-section">
+            <h2>اختر موضوع الاختبار</h2>
+            <div class="topic-input-container">
+                <input type="text" id="topic-input" placeholder="أدخل موضوعاً (مثل: الفضاء، التاريخ الإسلامي، الرياضيات)">
+                <div class="options-row">
+                    <div class="option-group">
+                        <label>عدد الأسئلة:</label>
+                        <select id="questions-count">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>مستوى الصعوبة:</label>
+                        <select id="difficulty-level">
+                            <option value="سهل">سهل</option>
+                            <option value="متوسط" selected>متوسط</option>
+                            <option value="صعب">صعب</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="start-quiz-btn" class="primary-btn">ابدأ الاختبار</button>
+            </div>
+            
+            <div class="popular-topics">
+                <h3>مواضيع شائعة</h3>
+                <div class="topics-grid">
+                    <button class="topic-btn" data-topic="الفضاء والكواكب">الفضاء والكواكب</button>
+                    <button class="topic-btn" data-topic="التاريخ الإسلامي">التاريخ الإسلامي</button>
+                    <button class="topic-btn" data-topic="الرياضيات">الرياضيات</button>
+                    <button class="topic-btn" data-topic="جسم الإنسان">جسم الإنسان</button>
+                    <button class="topic-btn" data-topic="الجغرافيا">الجغرافيا</button>
+                    <button class="topic-btn" data-topic="التكنولوجيا">التكنولوجيا</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="game-section hidden">
+            <div class="loading-spinner"></div>
+            <p>جاري إنشاء اختبار عن <span id="loading-topic"></span>...</p>
+        </div>
+
+        <div id="quiz-area" class="game-section hidden">
+            <div class="quiz-info">
+                <div class="info-item">
+                    <span class="info-label">السؤال:</span>
+                    <span id="question-number" class="info-value">1/10</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">الموضوع:</span>
+                    <span id="current-topic" class="info-value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">الدرجة:</span>
+                    <span id="current-score" class="info-value">0</span>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+
+            <div class="question-container">
+                <h3 id="question-text" class="question-text"></h3>
+                <div id="options-container" class="options-container"></div>
+            </div>
+
+            <div class="quiz-controls">
+                <button id="next-btn" class="primary-btn" disabled>السؤال التالي</button>
+                <a href="./quiz.html">
+                    <button id="back-to-topics-btn" class="secondary-btn">العودة للمواضيع</button>
+                </a>
+            </div>
+        </div>
+
+        <div id="results" class="game-section hidden">
+            <h2>نتيجة الاختبار</h2>
+            <div class="score-display">
+                <div class="score-circle">
+                    <span id="final-score-percentage">0%</span>
+                </div>
+                <p>حصلت على <span id="correct-answers">0</span> من أصل <span id="total-questions">0</span></p>
+            </div>
+            
+            <div class="performance-feedback">
+                <h3 id="performance-title">تقييم الأداء</h3>
+                <p id="performance-message"></p>
+            </div>
+            
+            <div class="result-buttons">
+                <button id="review-answers-btn" class="secondary-btn">مراجعة الإجابات</button>
+                <button id="new-quiz-btn" class="primary-btn">اختبار جديد</button>
+            </div>
+        </div>
+
+        <div id="review" class="game-section hidden">
+            <h2>مراجعة الإجابات</h2>
+            <div id="review-container" class="review-container"></div>
+            <button id="back-to-results-btn" class="primary-btn">العودة للنتائج</button>
+        </div>
+    </div>
+
+    <button class="home-button" onclick="window.location.href='../index.html'">
+        <span class="material-symbols-rounded">home</span>
+    </button>
+
+    <script src="quiz.js"></script>
+</body>
+</html> 
